@@ -35,6 +35,9 @@ app.listen(port, () => {
 	console.log(`Serveur en cours d'exécution sur http://localhost:${port}`);
 });
 app.put("/", (req, res) => {
+    // récupérer toutes les données qui arrivent dans le corps de la requête (body)
+	const { firstName, lastName } = req.body
+    
     res.json({
         msg: "hello rest API ici le put !!!",
     })
