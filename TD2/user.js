@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
-
-const usersArray = [
+const db = require("./database")
+/*const usersArray = [
     {
         id: 1,
         firstName: "Pack",
@@ -27,7 +27,7 @@ const usersArray = [
         firstName: "Bro",
         lastName: "Doe",
     }
-]
+]*/
 // POST : CRÉER un nouvel utilisateur, basé sur les données passées dans le corps(body) de la requête
 router.post("/users", (req, res) => {
 	// récupérer toutes les données qui arrivent dans le corps de la requête (body)
@@ -100,7 +100,14 @@ router.delete("/users", (req, res) => {
 })
 
 router.get("/users", (req, res) => {
-    res.json(usersArray)
+    db.all('SELECT * FROM users', [], (err, rows) => {
+        if (err) {
+          res.status(500).json({ error: err.message });
+        } else {
+          res.json(rows);
+        }
+      });
+    
 })
 
 module.exports = router
